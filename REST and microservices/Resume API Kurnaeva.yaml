@@ -1,0 +1,98 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: "Resume API"
+  description: "Resume API используется для создания резюме. Краткую информацию о соискателе Курнаевой смотрите в теле примера для запроса."
+
+servers:
+  - url: https://examplehrsitehr.ru/api/3.0/
+    description: Production server
+
+paths:
+   /Resume/{id}:
+    put:
+      description: "Отправляет данные резюме. P. S. Данный раздел можно форматировать с помощью **Markdown**."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Resume"
+      responses:
+        '200':
+          description: "Changed"
+        '201':
+          description: "Created"
+components:
+  schemas:
+    Resume:
+      description: "Резюме соискателя"
+      type: object
+      required:
+       - id
+      properties:
+        id:
+          type: string
+          format: uuid
+        position:
+         type: string
+         example: Technical writer
+        next_company:
+         type: string
+         example: maxim
+        job_experience:
+          description: "Опыт работы в годах"
+          type: integer
+          minimum: 1
+          example: 5
+        first_name:
+          description: "Имя"
+          type: string
+          minLength: 2
+          maxLength: 180
+          example: Daria
+        last_name:
+          description: "Фамилия"
+          type: string
+          minLength: 2
+          maxLength: 180
+          example: Kurnaeva
+        city:
+          description: "Город"
+          type: string
+          example: Novosibirsk
+        age:
+          description: "Возраст"
+          type: integer
+          minimum: 18
+          maximum: 100
+          example: 30
+        birh_date:
+          description: "Дата рождения"
+          type: string
+          format: date
+          example: 10.04.1992
+        sex:
+          description: "Пол"
+          type: string
+          enum: [male, female]
+          example: female
+        phone:
+          description: "Мобильный телефон"
+          type: string
+          example: "8926123456890"
+        email:
+          description: "Электронная почта"
+          type: string
+          example: "freyapero@gmail.com"
+        
+        is_active:
+          type: boolean
+      
+
+
